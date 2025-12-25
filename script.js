@@ -585,6 +585,23 @@ function onPlayerReady(event) {
             volumeValue.textContent = '20%';
         }
         
+        // Update play icon based on initial state
+        const playIcon = document.getElementById('playIcon');
+        if (playIcon) {
+            // Check if video is playing
+            try {
+                const playerState = event.target.getPlayerState();
+                if (playerState === YT.PlayerState.PLAYING) {
+                    playIcon.textContent = '⏸';
+                } else {
+                    playIcon.textContent = '▶';
+                }
+            } catch (error) {
+                // If we can't check state, default to play icon
+                playIcon.textContent = '▶';
+            }
+        }
+        
         // Try to play (may be blocked by browser autoplay policy)
         // User interaction may be required
         setTimeout(() => {
@@ -602,12 +619,23 @@ function onPlayerReady(event) {
 
 function onPlayerStateChange(event) {
     // Handle player state changes if needed
+    const playIcon = document.getElementById('playIcon');
+    
     if (event.data === YT.PlayerState.PLAYING) {
         console.log('Video is playing');
+        if (playIcon) {
+            playIcon.textContent = '⏸';
+        }
     } else if (event.data === YT.PlayerState.PAUSED) {
         console.log('Video is paused');
+        if (playIcon) {
+            playIcon.textContent = '▶';
+        }
     } else if (event.data === YT.PlayerState.ENDED) {
         console.log('Video ended');
+        if (playIcon) {
+            playIcon.textContent = '▶';
+        }
     }
 }
 
@@ -1390,15 +1418,18 @@ function initMonthIndicatorsToggle() {
 function initMusicControls() {
     const musicToggleBtn = document.getElementById('musicToggle');
     const musicControlsPanel = document.getElementById('musicControlsPanel');
+    const playBtn = document.getElementById('musicPlayBtn');
     const muteBtn = document.getElementById('musicMuteBtn');
     const volumeSlider = document.getElementById('volumeSlider');
     const volumeValue = document.getElementById('volumeValue');
+    const playIcon = document.getElementById('playIcon');
     const muteIcon = document.getElementById('muteIcon');
     
     if (!musicToggleBtn || !musicControlsPanel) return;
     
     let isMuted = false;
     let savedVolume = 20; // Remember volume when muted
+    let isPlaying = false;
     
     // Toggle controls panel
     musicToggleBtn.addEventListener('click', (e) => {
@@ -1414,6 +1445,35 @@ function initMusicControls() {
             musicToggleBtn.classList.remove('active');
         }
     });
+    
+    // Play/Pause button
+    if (playBtn && playIcon) {
+        playBtn.addEventListener('click', () => {
+            // Wait for YouTube player to be ready
+            const checkPlayer = setInterval(() => {
+                if (youtubePlayer && typeof youtubePlayer.playVideo === 'function') {
+                    clearInterval(checkPlayer);
+                    
+                    try {
+                        if (isPlaying) {
+                            youtubePlayer.pauseVideo();
+                            playIcon.textContent = '▶';
+                            isPlaying = false;
+                        } else {
+                            youtubePlayer.playVideo();
+                            playIcon.textContent = '⏸';
+                            isPlaying = true;
+                        }
+                    } catch (error) {
+                        console.error('Error toggling play/pause:', error);
+                    }
+                }
+            }, 100);
+            
+            // Clear interval after 5 seconds if player never loads
+            setTimeout(() => clearInterval(checkPlayer), 5000);
+        });
+    }
     
     // Mute/Unmute button
     if (muteBtn && muteIcon) {

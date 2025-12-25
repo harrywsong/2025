@@ -1302,6 +1302,31 @@ body::before {
     gap: 1rem;
 }
 
+.music-play-btn {
+    background: rgba(255, 215, 0, 0.15);
+    border: 1px solid rgba(255, 215, 0, 0.4);
+    border-radius: 8px;
+    color: #ffd700;
+    font-size: 1.5rem;
+    width: 45px;
+    height: 45px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.music-play-btn:hover {
+    background: rgba(255, 215, 0, 0.2);
+    border-color: #ffd700;
+    transform: scale(1.1);
+}
+
+.music-play-btn:active {
+    transform: scale(0.95);
+}
+
 .music-mute-btn {
     background: rgba(255, 215, 0, 0.15);
     border: 1px solid rgba(255, 215, 0, 0.4);

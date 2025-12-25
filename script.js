@@ -271,7 +271,7 @@ const monthData = {
             {
                 id: 1,
                 url: 'images/oct1',
-                text: 'October Memory 1: 거울 셀카는 못참지지'
+                text: 'October Memory 1: 거울 셀카는 못참지'
             },
             {
                 id: 2,
@@ -301,12 +301,12 @@ const monthData = {
             {
                 id: 2,
                 url: 'images/nov2',
-                text: 'November Memory 2: 흔하지 않은 우리 둘만의 셀카카'
+                text: 'November Memory 2: 흔하지 않은 우리 둘만의 셀카'
             },
             {
                 id: 3,
                 url: 'images/nov3',
-                text: 'November Memory 3: 의자는 오버사이즈 사면 안되는 이유유'
+                text: 'November Memory 3: 의자는 오버사이즈 사면 안되는 이유'
             },
             {
                 id: 4,
@@ -326,7 +326,7 @@ const monthData = {
             {
                 id: 2,
                 url: 'images/dec2',
-                text: 'December Memory 2: 우혁이네 트리 꾸미기기'
+                text: 'December Memory 2: 우혁이네 트리 꾸미기'
             },
             {
                 id: 3,

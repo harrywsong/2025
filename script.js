@@ -1,98 +1,116 @@
+// Helper function to set image src with fallback to .png if .jpg fails
+function setImageSrcWithFallback(img, basePath) {
+    // Remove existing extension if present
+    const base = basePath.replace(/\.(jpg|png)$/i, '');
+    
+    // Try .jpg first
+    const jpgUrl = base + '.jpg';
+    img.src = jpgUrl;
+    
+    // If .jpg fails to load, try .png
+    img.onerror = function() {
+        const pngUrl = base + '.png';
+        // Remove the error handler to prevent infinite loop if both fail
+        img.onerror = null;
+        img.src = pngUrl;
+    };
+}
+
 // Placeholder data for each month
 const monthData = {
     january: {
         name: 'January',
         images: Array(4).fill(null).map((_, i) => ({
             id: i + 1,
-            url: `https://picsum.photos/800/600?random=${i + 1}`,
+            url: `images/jan${i + 1}`, // No extension - will try both .jpg and .png
             text: `January Memory ${i + 1}: This is a placeholder excerpt for a beautiful memory from January. Here you can describe the special moments, feelings, and experiences that made this month memorable.`
         }))
     },
     february: {
         name: 'February',
-        images: Array(9).fill(null).map((_, i) => ({
+        images: Array(4).fill(null).map((_, i) => ({
             id: i + 1,
-            url: `https://picsum.photos/800/600?random=${i + 11}`,
+            url: `images/feb${i + 1}`,
             text: `February Memory ${i + 1}: This is a placeholder excerpt for a beautiful memory from February. Here you can describe the special moments, feelings, and experiences that made this month memorable.`
         }))
     },
     march: {
         name: 'March',
-        images: Array(9).fill(null).map((_, i) => ({
+        images: Array(4).fill(null).map((_, i) => ({
             id: i + 1,
-            url: `https://picsum.photos/800/600?random=${i + 21}`,
+            url: `images/mar${i + 1}`,
             text: `March Memory ${i + 1}: This is a placeholder excerpt for a beautiful memory from March. Here you can describe the special moments, feelings, and experiences that made this month memorable.`
         }))
     },
     april: {
         name: 'April',
-        images: Array(9).fill(null).map((_, i) => ({
+        images: Array(4).fill(null).map((_, i) => ({
             id: i + 1,
-            url: `https://picsum.photos/800/600?random=${i + 31}`,
+            url: `images/apr${i + 1}`,
             text: `April Memory ${i + 1}: This is a placeholder excerpt for a beautiful memory from April. Here you can describe the special moments, feelings, and experiences that made this month memorable.`
         }))
     },
     may: {
         name: 'May',
-        images: Array(9).fill(null).map((_, i) => ({
+        images: Array(4).fill(null).map((_, i) => ({
             id: i + 1,
-            url: `https://picsum.photos/800/600?random=${i + 41}`,
+            url: `images/may${i + 1}`,
             text: `May Memory ${i + 1}: This is a placeholder excerpt for a beautiful memory from May. Here you can describe the special moments, feelings, and experiences that made this month memorable.`
         }))
     },
     june: {
         name: 'June',
-        images: Array(9).fill(null).map((_, i) => ({
+        images: Array(4).fill(null).map((_, i) => ({
             id: i + 1,
-            url: `https://picsum.photos/800/600?random=${i + 51}`,
+            url: `images/jun${i + 1}`,
             text: `June Memory ${i + 1}: This is a placeholder excerpt for a beautiful memory from June. Here you can describe the special moments, feelings, and experiences that made this month memorable.`
         }))
     },
     july: {
         name: 'July',
-        images: Array(9).fill(null).map((_, i) => ({
+        images: Array(4).fill(null).map((_, i) => ({
             id: i + 1,
-            url: `https://picsum.photos/800/600?random=${i + 61}`,
+            url: `images/jul${i + 1}`,
             text: `July Memory ${i + 1}: This is a placeholder excerpt for a beautiful memory from July. Here you can describe the special moments, feelings, and experiences that made this month memorable.`
         }))
     },
     august: {
         name: 'August',
-        images: Array(9).fill(null).map((_, i) => ({
+        images: Array(4).fill(null).map((_, i) => ({
             id: i + 1,
-            url: `https://picsum.photos/800/600?random=${i + 71}`,
+            url: `images/aug${i + 1}`,
             text: `August Memory ${i + 1}: This is a placeholder excerpt for a beautiful memory from August. Here you can describe the special moments, feelings, and experiences that made this month memorable.`
         }))
     },
     september: {
         name: 'September',
-        images: Array(9).fill(null).map((_, i) => ({
+        images: Array(4).fill(null).map((_, i) => ({
             id: i + 1,
-            url: `https://picsum.photos/800/600?random=${i + 81}`,
+            url: `images/sep${i + 1}`,
             text: `September Memory ${i + 1}: This is a placeholder excerpt for a beautiful memory from September. Here you can describe the special moments, feelings, and experiences that made this month memorable.`
         }))
     },
     october: {
         name: 'October',
-        images: Array(9).fill(null).map((_, i) => ({
+        images: Array(4).fill(null).map((_, i) => ({
             id: i + 1,
-            url: `https://picsum.photos/800/600?random=${i + 91}`,
+            url: `images/oct${i + 1}`,
             text: `October Memory ${i + 1}: This is a placeholder excerpt for a beautiful memory from October. Here you can describe the special moments, feelings, and experiences that made this month memorable.`
         }))
     },
     november: {
         name: 'November',
-        images: Array(9).fill(null).map((_, i) => ({
+        images: Array(4).fill(null).map((_, i) => ({
             id: i + 1,
-            url: `https://picsum.photos/800/600?random=${i + 101}`,
+            url: `images/nov${i + 1}`,
             text: `November Memory ${i + 1}: This is a placeholder excerpt for a beautiful memory from November. Here you can describe the special moments, feelings, and experiences that made this month memorable.`
         }))
     },
     december: {
         name: 'December',
-        images: Array(9).fill(null).map((_, i) => ({
+        images: Array(4).fill(null).map((_, i) => ({
             id: i + 1,
-            url: `https://picsum.photos/800/600?random=${i + 111}`,
+            url: `images/dec${i + 1}`,
             text: `December Memory ${i + 1}: This is a placeholder excerpt for a beautiful memory from December. Here you can describe the special moments, feelings, and experiences that made this month memorable.`
         }))
     }
@@ -155,7 +173,7 @@ function openScrapbook(monthKey) {
         item.style.animationDelay = `${index * 0.05}s`;
         
         const img = document.createElement('img');
-        img.src = imageData.url;
+        setImageSrcWithFallback(img, imageData.url);
         img.alt = `${month.name} Memory ${imageData.id}`;
         img.loading = 'lazy';
         
@@ -193,7 +211,7 @@ function closeScrapbookModal() {
 }
 
 function openImageModal(imageData) {
-    modalImage.src = imageData.url;
+    setImageSrcWithFallback(modalImage, imageData.url);
     modalText.textContent = imageData.text;
     
     // Reset animation by removing and re-adding the class
@@ -226,7 +244,7 @@ function preloadImages() {
     Object.values(monthData).forEach(month => {
         month.images.forEach(imageData => {
             const img = new Image();
-            img.src = imageData.url;
+            setImageSrcWithFallback(img, imageData.url);
         });
     });
 }
@@ -928,11 +946,8 @@ function initScrollTimeline() {
         
         // Calculate scroll progress (0-100%) based on tree container
         const treeContainer = document.querySelector('.tree-container');
-        if (!treeContainer || !scrollTimeline) return;
-        
-        const treeTop = treeContainer.offsetTop;
-        const treeHeight = treeContainer.offsetHeight;
-        const treeBottom = treeTop + treeHeight;
+        const treeWrapper = document.querySelector('.tree-wrapper');
+        if (!treeContainer || !scrollTimeline || !treeWrapper) return;
         
         const treeImageHeightPx = window.treeImageHeightPx; // Actual image height in pixels
         
@@ -945,56 +960,57 @@ function initScrollTimeline() {
         // Calculate viewport center (what's in the middle of the screen)
         const viewportCenter = scrollTop + (windowHeight / 2);
         
-        // Calculate where Jan is positioned on the tree (in pixels from document top)
-        const januaryPosition = monthPositions[0];
-        const januaryPositionPx = treeTop + (treeHeight * januaryPosition / 100);
+        // Calculate where the tree wrapper actually starts (this is where the tree image begins)
+        const treeWrapperTop = treeWrapper.offsetTop;
+        const treeWrapperHeight = treeWrapper.offsetHeight;
         
-        // Scrollbar should ONLY appear when Jan is at or past viewport center
-        if (viewportCenter < januaryPositionPx) {
-            // Before Jan is centered - hide scrollbar
+        // Calculate where Jan is positioned (in pixels from document top)
+        const januaryPosition = monthPositions[0];
+        const januaryPositionPx = treeWrapperTop + (treeWrapperHeight * januaryPosition / 100);
+        
+        // Calculate where December ends (in pixels from document top)
+        const decemberPosition = monthPositions[11];
+        const decemberPositionPx = treeWrapperTop + (treeWrapperHeight * decemberPosition / 100);
+        
+        // Scrollbar should ONLY appear when viewport center is between Jan and a bit past December
+        if (viewportCenter < januaryPositionPx || viewportCenter > decemberPositionPx + (windowHeight * 0.5)) {
+            // Before Jan is centered OR scrolled past December - hide scrollbar
             scrollTimeline.classList.remove('visible');
             timelineBar.style.setProperty('--scroll-progress', '0%');
             return;
         }
         
-        // Jan is at or past center - show scrollbar
+        // Viewport center is in the active range - show scrollbar
         scrollTimeline.classList.add('visible');
         
         // Now determine which month is at viewport center and calculate progress
         let activeIndex = -1;
         let scrollPercent = 0;
         
-        if (viewportCenter > treeBottom) {
-            // Past tree - show December
-            activeIndex = 11;
-            scrollPercent = 100;
-        } else {
-            // Within tree - calculate which month is at viewport center
-            const relativePosition = viewportCenter - treeTop;
-            const positionPercent = (relativePosition / treeHeight) * 100;
-            
-            // Find the closest month position to the viewport center
-            let minDistance = Infinity;
-            monthPositions.forEach((pos, index) => {
-                const distance = Math.abs(positionPercent - pos);
-                if (distance < minDistance) {
-                    minDistance = distance;
-                    activeIndex = index;
-                }
-            });
-            
-            // Calculate progress bar position based on active month
-            // Progress should match where the active month is on the timeline
-            // relative to Jan (0%) and Dec (100%)
-            const decemberPosition = monthPositions[11];
-            const activeMonthPosition = monthPositions[activeIndex];
-            
-            // Calculate progress: where is the active month relative to Jan (0%) and Dec (100%)
-            const totalRange = decemberPosition - januaryPosition;
-            const progressFromJan = activeMonthPosition - januaryPosition;
-            scrollPercent = totalRange > 0 ? (progressFromJan / totalRange) * 100 : 0;
-            scrollPercent = Math.min(100, Math.max(0, scrollPercent));
-        }
+        // Within tree - calculate which month is at viewport center
+        const relativePosition = viewportCenter - treeWrapperTop;
+        const positionPercent = (relativePosition / treeWrapperHeight) * 100;
+        
+        // Find the closest month position to the viewport center
+        let minDistance = Infinity;
+        monthPositions.forEach((pos, index) => {
+            const distance = Math.abs(positionPercent - pos);
+            if (distance < minDistance) {
+                minDistance = distance;
+                activeIndex = index;
+            }
+        });
+        
+        // Calculate progress bar position based on active month
+        const decemberPos = monthPositions[11];
+        const januaryPos = monthPositions[0];
+        const activeMonthPosition = monthPositions[activeIndex];
+        
+        // Calculate progress: where is the active month relative to Jan (0%) and Dec (100%)
+        const totalRange = decemberPos - januaryPos;
+        const progressFromJan = activeMonthPosition - januaryPos;
+        scrollPercent = totalRange > 0 ? (progressFromJan / totalRange) * 100 : 0;
+        scrollPercent = Math.min(100, Math.max(0, scrollPercent));
         
         // Update active state and progress bar
         timelineMonths.forEach((month, index) => {

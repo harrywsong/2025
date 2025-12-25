@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>12 Months of Christmas</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- YouTube IFrame API -->
+    <script src="https://www.youtube.com/iframe_api" async></script>
+</head>
+<body>
+    <!-- Snowfall Toggle Button -->
+    <button class="snowfall-toggle" id="snowfallToggle" title="Toggle snowfall">
+        <span class="snowflake-icon">❄</span>
+    </button>
+    
+    <!-- Music Control Button -->
+    <button class="music-toggle" id="musicToggle" title="Music controls">
+        <span class="music-icon">♪</span>
+    </button>
+    
+    <!-- Month Indicators Toggle Button -->
+    <button class="month-indicators-toggle" id="monthIndicatorsToggle" title="Toggle month indicators">
+        <span class="calendar-icon">📅</span>
+    </button>
+    
+    <!-- Music Control Panel -->
+    <div class="music-controls-panel" id="musicControlsPanel">
+        <div class="music-controls-content">
+            <div class="music-control-row">
+                <button class="music-mute-btn" id="musicMuteBtn" title="Mute/Unmute">
+                    <span id="muteIcon">🔊</span>
+                </button>
+                <div class="volume-control">
+                    <input type="range" class="volume-slider" id="volumeSlider" min="0" max="100" value="20" title="Volume">
+                    <span class="volume-value" id="volumeValue">20%</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Hidden YouTube Video for Audio -->
+    <div id="youtubePlayer" style="display: none;"></div>
+    
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop" title="Back to top">
+        <span>↑</span>
+    </button>
+
+    <!-- Scroll Progress Timeline -->
+    <div class="scroll-timeline">
+        <div class="timeline-bar" id="timelineBar"></div>
+        <div class="timeline-months">
+            <span class="timeline-month" data-month="january">Jan</span>
+            <span class="timeline-month" data-month="february">Feb</span>
+            <span class="timeline-month" data-month="march">Mar</span>
+            <span class="timeline-month" data-month="april">Apr</span>
+            <span class="timeline-month" data-month="may">May</span>
+            <span class="timeline-month" data-month="june">Jun</span>
+            <span class="timeline-month" data-month="july">Jul</span>
+            <span class="timeline-month" data-month="august">Aug</span>
+            <span class="timeline-month" data-month="september">Sep</span>
+            <span class="timeline-month" data-month="october">Oct</span>
+            <span class="timeline-month" data-month="november">Nov</span>
+            <span class="timeline-month" data-month="december">Dec</span>
+        </div>
+    </div>
+
+    <!-- Landing Page Section -->
+    <section class="landing-page" id="landingPage">
+        <div class="landing-content">
+            <h1 class="landing-title">12 Months of Christmas</h1>
+            <p class="landing-subtitle">A Year of Memories</p>
+            <div class="scroll-indicator">
+                <span class="scroll-text">Scroll to explore</span>
+                <div class="scroll-arrow">↓</div>
+            </div>
+        </div>
+        <div class="landing-stars"></div>
+    </section>
+
+    <div class="container">
+        <!-- Snowfall Container (covers header and tree, scrolls with page) -->
+        <div class="snow-container" id="snowContainer"></div>
+        
+        <div class="tree-container">
+            <!-- Christmas Tree Image -->
+            <div class="tree-wrapper">
+                <img src="images/tree.png" alt="Christmas Tree" class="tree-image">
+                
+                <!-- Month badges positioned on tree -->
+                <div class="month-sections" id="monthSections"></div>
+                
+                <!-- Image ornaments on tree -->
+                <div class="image-ornaments-container" id="imageOrnamentsContainer"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scrapbook Modal -->
+    <div class="scrapbook-modal" id="scrapbookModal">
+        <div class="scrapbook-content">
+            <button class="close-btn" id="closeScrapbook">&times;</button>
+            <h2 class="scrapbook-title" id="scrapbookTitle">January Memories</h2>
+            <div class="scrapbook-grid" id="scrapbookGrid">
+                <!-- Images will be inserted here via JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Image Detail Modal -->
+    <div class="image-modal" id="imageModal">
+        <div class="image-modal-content">
+            <button class="close-btn" id="closeImage">&times;</button>
+            <div class="image-wrapper">
+                <img id="modalImage" src="" alt="Memory">
+            </div>
+            <div class="image-text">
+                <p id="modalText">Placeholder text for this memory. This is where your personalized excerpt will appear.</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

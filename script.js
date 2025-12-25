@@ -590,9 +590,43 @@ function onPlayerReady(event) {
         setTimeout(() => {
             try {
                 event.target.playVideo();
+                
+                // Check if video actually started playing after a short delay
+                setTimeout(() => {
+                    try {
+                        const playerState = event.target.getPlayerState();
+                        // YT.PlayerState.PLAYING = 1
+                        if (playerState !== 1) {
+                            // Autoplay was blocked - mark that user interaction is needed
+                            window.musicNeedsUserInteraction = true;
+                            console.log('Autoplay blocked. User interaction required to start music.');
+                            
+                            // Add visual indicator to music button
+                            const musicToggleBtn = document.getElementById('musicToggle');
+                            if (musicToggleBtn) {
+                                musicToggleBtn.classList.add('needs-interaction');
+                                musicToggleBtn.title = 'Click to start music';
+                            }
+                        } else {
+                            window.musicNeedsUserInteraction = false;
+                        }
+                    } catch (checkError) {
+                        // If we can't check state, assume interaction is needed
+                        window.musicNeedsUserInteraction = true;
+                        console.log('Could not verify playback state. User interaction may be required.');
+                    }
+                }, 500);
             } catch (error) {
                 // Autoplay may be blocked by browser policy - user interaction required
+                window.musicNeedsUserInteraction = true;
                 console.log('Autoplay blocked. User interaction required.', error);
+                
+                // Add visual indicator to music button
+                const musicToggleBtn = document.getElementById('musicToggle');
+                if (musicToggleBtn) {
+                    musicToggleBtn.classList.add('needs-interaction');
+                    musicToggleBtn.title = 'Click to start music';
+                }
             }
         }, 100);
     } catch (error) {
@@ -669,6 +703,46 @@ window.addEventListener('load', () => {
     initStringLights();
     initBackToTop();
     initScrollTimeline();
+    
+    // Try to start music playback on first user interaction (click, touch, or keypress)
+    // This helps with browsers that block autoplay but allow playback after any user interaction
+    const startMusicOnInteraction = () => {
+        if (window.musicNeedsUserInteraction && youtubePlayer) {
+            try {
+                const playerState = youtubePlayer.getPlayerState();
+                if (playerState !== 1) { // Not playing
+                    youtubePlayer.playVideo();
+                    window.musicNeedsUserInteraction = false;
+                    const musicToggleBtn = document.getElementById('musicToggle');
+                    if (musicToggleBtn) {
+                        musicToggleBtn.classList.remove('needs-interaction');
+                        musicToggleBtn.title = 'Music controls';
+                    }
+                    console.log('Music playback started via page interaction');
+                }
+            } catch (error) {
+                console.error('Error starting playback on interaction:', error);
+            }
+        }
+    };
+    
+    // Listen for first user interaction (one-time only)
+    let interactionHandled = false;
+    const handleFirstInteraction = () => {
+        if (!interactionHandled) {
+            interactionHandled = true;
+            startMusicOnInteraction();
+            // Remove listeners after first interaction
+            document.removeEventListener('click', handleFirstInteraction);
+            document.removeEventListener('touchstart', handleFirstInteraction);
+            document.removeEventListener('keydown', handleFirstInteraction);
+        }
+    };
+    
+    // Add listeners for various interaction types
+    document.addEventListener('click', handleFirstInteraction, { once: true });
+    document.addEventListener('touchstart', handleFirstInteraction, { once: true });
+    document.addEventListener('keydown', handleFirstInteraction, { once: true });
     
     // Check if YouTube API is already loaded (in case it loaded before our callback was set)
     if (typeof YT !== 'undefined' && typeof YT.Player !== 'undefined' && !youtubePlayer) {
@@ -1400,9 +1474,32 @@ function initMusicControls() {
     let isMuted = false;
     let savedVolume = 20; // Remember volume when muted
     
+    // Function to start playback if needed (for browsers that block autoplay)
+    const startPlaybackIfNeeded = () => {
+        if (window.musicNeedsUserInteraction && youtubePlayer) {
+            try {
+                const playerState = youtubePlayer.getPlayerState();
+                // YT.PlayerState.PLAYING = 1, YT.PlayerState.PAUSED = 2, YT.PlayerState.ENDED = 0
+                if (playerState !== 1) {
+                    youtubePlayer.playVideo();
+                    window.musicNeedsUserInteraction = false;
+                    musicToggleBtn.classList.remove('needs-interaction');
+                    musicToggleBtn.title = 'Music controls';
+                    console.log('Music playback started via user interaction');
+                }
+            } catch (error) {
+                console.error('Error starting playback:', error);
+            }
+        }
+    };
+    
     // Toggle controls panel
     musicToggleBtn.addEventListener('click', (e) => {
         e.stopPropagation();
+        
+        // Try to start playback if autoplay was blocked
+        startPlaybackIfNeeded();
+        
         musicControlsPanel.classList.toggle('active');
         musicToggleBtn.classList.toggle('active');
     });
@@ -1418,6 +1515,9 @@ function initMusicControls() {
     // Mute/Unmute button
     if (muteBtn && muteIcon) {
         muteBtn.addEventListener('click', () => {
+            // Try to start playback if autoplay was blocked
+            startPlaybackIfNeeded();
+            
             // Wait for YouTube player to be ready
             const checkPlayer = setInterval(() => {
                 if (youtubePlayer && typeof youtubePlayer.getVolume === 'function') {
@@ -1451,6 +1551,9 @@ function initMusicControls() {
     // Volume slider
     if (volumeSlider && volumeValue) {
         volumeSlider.addEventListener('input', (e) => {
+            // Try to start playback if autoplay was blocked
+            startPlaybackIfNeeded();
+            
             const volume = Number.parseInt(e.target.value, 10);
             volumeValue.textContent = volume + '%';
             

@@ -1263,6 +1263,29 @@ body::before {
         0 0 25px rgba(255, 215, 0, 0.5);
 }
 
+.music-toggle.needs-interaction {
+    animation: pulse-music-button 2s ease-in-out infinite;
+    border-color: #4ecdc4;
+    box-shadow: 
+        0 4px 15px rgba(0, 0, 0, 0.3),
+        0 0 25px rgba(78, 205, 196, 0.6);
+}
+
+@keyframes pulse-music-button {
+    0%, 100% {
+        transform: scale(1);
+        box-shadow: 
+            0 4px 15px rgba(0, 0, 0, 0.3),
+            0 0 25px rgba(78, 205, 196, 0.6);
+    }
+    50% {
+        transform: scale(1.05);
+        box-shadow: 
+            0 4px 15px rgba(0, 0, 0, 0.3),
+            0 0 35px rgba(78, 205, 196, 0.8);
+    }
+}
+
 /* Music Control Panel */
 .music-controls-panel {
     position: fixed;

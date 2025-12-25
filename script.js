@@ -1,3 +1,24 @@
+// Sound effects
+function playPaperSound() {
+    const audio = new Audio('sounds/paper.mp3');
+    audio.volume = 0.5;
+    audio.play().catch(error => {
+        // Ignore autoplay errors - user interaction may be required
+        console.log('Could not play paper sound:', error);
+    });
+}
+
+function playRandomGlassSound() {
+    const glassSounds = ['sounds/glass1.mp3', 'sounds/glass2.mp3', 'sounds/glass3.mp3'];
+    const randomSound = glassSounds[Math.floor(Math.random() * glassSounds.length)];
+    const audio = new Audio(randomSound);
+    audio.volume = 0.5;
+    audio.play().catch(error => {
+        // Ignore autoplay errors - user interaction may be required
+        console.log('Could not play glass sound:', error);
+    });
+}
+
 // Helper function to set image src with fallback to .png if .jpg fails
 function setImageSrcWithFallback(img, basePath) {
     // Remove existing extension if present
@@ -16,120 +37,338 @@ function setImageSrcWithFallback(img, basePath) {
     };
 }
 
-// Placeholder data for each month
+// Memory data for each month
+// Each image can have its own unique text - just edit the text field for each image
 const monthData = {
     january: {
         name: 'January',
-        images: Array(4).fill(null).map((_, i) => ({
-            id: i + 1,
-            url: `images/jan${i + 1}`, // No extension - will try both .jpg and .png
-            text: `January Memory ${i + 1}: This is a placeholder excerpt for a beautiful memory from January. Here you can describe the special moments, feelings, and experiences that made this month memorable.`
-        }))
+        images: [
+            {
+                id: 1,
+                url: 'images/jan1', // No extension - will try both .jpg and .png
+                text: 'January Memory 1: 뭘 하고 있는지 모르겠지만 일단 V^^'
+            },
+            {
+                id: 2,
+                url: 'images/jan2',
+                text: 'January Memory 2: 예원이가 먹으라고 시켜준 Nonna Lia! 짱맛있었다.'
+            },
+            {
+                id: 3,
+                url: 'images/jan3',
+                text: 'January Memory 3: 뭘 하고 있는지 모르겠지만 pt2 - 일단 하트'
+            },
+            {
+                id: 4,
+                url: 'images/jan4',
+                text: 'January Memory 4: 진짜 뭐 하고 있는지 모르겠지만 pt3 - 일단 포즈 잡아주자'
+            }
+        ]
     },
     february: {
         name: 'February',
-        images: Array(4).fill(null).map((_, i) => ({
-            id: i + 1,
-            url: `images/feb${i + 1}`,
-            text: `February Memory ${i + 1}: This is a placeholder excerpt for a beautiful memory from February. Here you can describe the special moments, feelings, and experiences that made this month memorable.`
-        }))
+        images: [
+            {
+                id: 1,
+                url: 'images/feb1',
+                text: 'February Memory 1: 2025년도 첫 만남!'
+            },
+            {
+                id: 2,
+                url: 'images/feb2',
+                text: 'February Memory 2: 밥 먹으러 이화행 - 근데 눈..!'
+            },
+            {
+                id: 3,
+                url: 'images/feb3',
+                text: 'February Memory 3: 눈 오니까 엄청 신난 예원이'
+            },
+            {
+                id: 4,
+                url: 'images/feb4',
+                text: 'February Memory 4: CN Tower 위에서 토론토 내려다보기'
+            }
+        ]
     },
     march: {
         name: 'March',
-        images: Array(4).fill(null).map((_, i) => ({
-            id: i + 1,
-            url: `images/mar${i + 1}`,
-            text: `March Memory ${i + 1}: This is a placeholder excerpt for a beautiful memory from March. Here you can describe the special moments, feelings, and experiences that made this month memorable.`
-        }))
+        images: [
+            {
+                id: 1,
+                url: 'images/mar1',
+                text: 'March Memory 1: 우리의 200일'
+            },
+            {
+                id: 2,
+                url: 'images/mar2',
+                text: 'March Memory 2: 어머 모델이 열일하시네'
+            },
+            {
+                id: 3,
+                url: 'images/mar3',
+                text: 'March Memory 3: V^^V.'
+            },
+            {
+                id: 4,
+                url: 'images/mar4',
+                text: 'March Memory 4: ??? 뭘 하고 있는지 모르겠지만 pt 5 - 우성이가 우혁이 끌고 다니기'
+            }
+        ]
     },
     april: {
         name: 'April',
-        images: Array(4).fill(null).map((_, i) => ({
-            id: i + 1,
-            url: `images/apr${i + 1}`,
-            text: `April Memory ${i + 1}: This is a placeholder excerpt for a beautiful memory from April. Here you can describe the special moments, feelings, and experiences that made this month memorable.`
-        }))
+        images: [
+            {
+                id: 1,
+                url: 'images/apr1',
+                text: 'April Memory 1: 멍멍이랑 포토슛'
+            },
+            {
+                id: 2,
+                url: 'images/apr2',
+                text: 'April Memory 2: 우성이랑 우혁이 영화관 데이트'
+            },
+            {
+                id: 3,
+                url: 'images/apr3',
+                text: 'April Memory 3: 예원이가 그려준 우혁'
+            },
+            {
+                id: 4,
+                url: 'images/apr4',
+                text: 'April Memory 4: "나도 없는데 그렇게 꾸미고 어딜 가는거야?" - 우혁'
+            }
+        ]
     },
     may: {
         name: 'May',
-        images: Array(4).fill(null).map((_, i) => ({
-            id: i + 1,
-            url: `images/may${i + 1}`,
-            text: `May Memory ${i + 1}: This is a placeholder excerpt for a beautiful memory from May. Here you can describe the special moments, feelings, and experiences that made this month memorable.`
-        }))
+        images: [
+            {
+                id: 1,
+                url: 'images/may1',
+                text: 'May Memory 1: 또 다시 만난 3종 세트'
+            },
+            {
+                id: 2,
+                url: 'images/may2',
+                text: 'May Memory 2: 평생 가보고싶었던 퀘벡에 있는 크리스마스 가계 가서 너무 신난 예원이'
+            },
+            {
+                id: 3,
+                url: 'images/may3',
+                text: 'May Memory 3: 둘만의 평온한 여행'
+            },
+            {
+                id: 4,
+                url: 'images/may4',
+                text: 'May Memory 4: 폭포 앞에서 브이이이이이'
+            }
+        ]
     },
     june: {
         name: 'June',
-        images: Array(4).fill(null).map((_, i) => ({
-            id: i + 1,
-            url: `images/jun${i + 1}`,
-            text: `June Memory ${i + 1}: This is a placeholder excerpt for a beautiful memory from June. Here you can describe the special moments, feelings, and experiences that made this month memorable.`
-        }))
+        images: [
+            {
+                id: 1,
+                url: 'images/jun1',
+                text: 'June Memory 1: 발로란트 마스터즈 토론토 시청하러 간 우혁'
+            },
+            {
+                id: 2,
+                url: 'images/jun2',
+                text: 'June Memory 2: 맛있는거 먹느라 신난 우혁'
+            },
+            {
+                id: 3,
+                url: 'images/jun3',
+                text: 'June Memory 3: 직장 생활 시작한 예원이'
+            },
+            {
+                id: 4,
+                url: 'images/jun4',
+                text: 'June Memory 4: 주토피아 현실판'
+            }
+        ]
     },
     july: {
         name: 'July',
-        images: Array(4).fill(null).map((_, i) => ({
-            id: i + 1,
-            url: `images/jul${i + 1}`,
-            text: `July Memory ${i + 1}: This is a placeholder excerpt for a beautiful memory from July. Here you can describe the special moments, feelings, and experiences that made this month memorable.`
-        }))
+        images: [
+            {
+                id: 1,
+                url: 'images/jul1',
+                text: 'July Memory 1: 사진 찍어야해서 포즈 잡는 예원이'
+            },
+            {
+                id: 2,
+                url: 'images/jul2',
+                text: 'July Memory 2: Coffee break!'
+            },
+            {
+                id: 3,
+                url: 'images/jul3',
+                text: 'July Memory 3: 영차! 작년에 찍은 사진 따라하기'
+            },
+            {
+                id: 4,
+                url: 'images/jul4',
+                text: 'July Memory 4: "낮엔 파란 하늘, 별이 보이는 밤"'
+            }
+        ]
     },
     august: {
         name: 'August',
-        images: Array(4).fill(null).map((_, i) => ({
-            id: i + 1,
-            url: `images/aug${i + 1}`,
-            text: `August Memory ${i + 1}: This is a placeholder excerpt for a beautiful memory from August. Here you can describe the special moments, feelings, and experiences that made this month memorable.`
-        }))
+        images: [
+            {
+                id: 1,
+                url: 'images/aug1',
+                text: 'August Memory 1: 와 미쳐따..! 근데 이거 어떻게 다 먹어 우리?'
+            },
+            {
+                id: 2,
+                url: 'images/aug2',
+                text: 'August Memory 2: 인생네컷 찍고 나온 우혁예원'
+            },
+            {
+                id: 3,
+                url: 'images/aug3',
+                text: 'August Memory 3: 후식까지 때리면서 하루 마무리!'
+            },
+            {
+                id: 4,
+                url: 'images/aug4',
+                text: 'August Memory 4: 우성이랑 우혁이의 데이트날 pt2'
+            }
+        ]
     },
     september: {
         name: 'September',
-        images: Array(4).fill(null).map((_, i) => ({
-            id: i + 1,
-            url: `images/sep${i + 1}`,
-            text: `September Memory ${i + 1}: This is a placeholder excerpt for a beautiful memory from September. Here you can describe the special moments, feelings, and experiences that made this month memorable.`
-        }))
+        images: [
+            {
+                id: 1,
+                url: 'images/sep1',
+                text: 'September Memory 1: 피카츄라이츄아이원츄'
+            },
+            {
+                id: 2,
+                url: 'images/sep2',
+                text: 'September Memory 2: 카페 거울 앞에서 폼잡는중'
+            },
+            {
+                id: 3,
+                url: 'images/sep3',
+                text: 'September Memory 3: (ㅁㅁ)V'
+            },
+            {
+                id: 4,
+                url: 'images/sep4',
+                text: 'September Memory 4: 옴념념'
+            }
+        ]
     },
     october: {
         name: 'October',
-        images: Array(4).fill(null).map((_, i) => ({
-            id: i + 1,
-            url: `images/oct${i + 1}`,
-            text: `October Memory ${i + 1}: This is a placeholder excerpt for a beautiful memory from October. Here you can describe the special moments, feelings, and experiences that made this month memorable.`
-        }))
+        images: [
+            {
+                id: 1,
+                url: 'images/oct1',
+                text: 'October Memory 1: 거울 셀카는 못참지지'
+            },
+            {
+                id: 2,
+                url: 'images/oct2',
+                text: 'October Memory 2: 우혁이는 이제 26살...'
+            },
+            {
+                id: 3,
+                url: 'images/oct3',
+                text: 'October Memory 3: 예원이랑 지원이 만난지 25주년 파티 - pt1'
+            },
+            {
+                id: 4,
+                url: 'images/oct4',
+                text: 'October Memory 4: B) 예원이랑 지원이 만난지 25주년 파티 - pt2'
+            }
+        ]
     },
     november: {
         name: 'November',
-        images: Array(4).fill(null).map((_, i) => ({
-            id: i + 1,
-            url: `images/nov${i + 1}`,
-            text: `November Memory ${i + 1}: This is a placeholder excerpt for a beautiful memory from November. Here you can describe the special moments, feelings, and experiences that made this month memorable.`
-        }))
+        images: [
+            {
+                id: 1,
+                url: 'images/nov1',
+                text: 'November Memory 1: 아니... 11월인데 왜 벌써 크리스마스 트리야...'
+            },
+            {
+                id: 2,
+                url: 'images/nov2',
+                text: 'November Memory 2: 흔하지 않은 우리 둘만의 셀카카'
+            },
+            {
+                id: 3,
+                url: 'images/nov3',
+                text: 'November Memory 3: 의자는 오버사이즈 사면 안되는 이유유'
+            },
+            {
+                id: 4,
+                url: 'images/nov4',
+                text: 'November Memory 4: CCTV 셀카. 유행은 내가 만든다.'
+            }
+        ]
     },
     december: {
         name: 'December',
-        images: Array(4).fill(null).map((_, i) => ({
-            id: i + 1,
-            url: `images/dec${i + 1}`,
-            text: `December Memory ${i + 1}: This is a placeholder excerpt for a beautiful memory from December. Here you can describe the special moments, feelings, and experiences that made this month memorable.`
-        }))
+        images: [
+            {
+                id: 1,
+                url: 'images/dec1',
+                text: 'December Memory 1: 올해 마지막 V^^'
+            },
+            {
+                id: 2,
+                url: 'images/dec2',
+                text: 'December Memory 2: 우혁이네 트리 꾸미기기'
+            },
+            {
+                id: 3,
+                url: 'images/dec3',
+                text: 'December Memory 3: 에헹 크뤼스마스!'
+            },
+            {
+                id: 4,
+                url: 'images/dec4',
+                text: 'December Memory 4: 우효기 생각나는 짱 이쁜 곳'
+            }
+        ]
     }
 };
 
 // DOM Elements
 const scrapbookModal = document.getElementById('scrapbookModal');
 const imageModal = document.getElementById('imageModal');
+const letterModal = document.getElementById('letterModal');
 const scrapbookTitle = document.getElementById('scrapbookTitle');
 const scrapbookGrid = document.getElementById('scrapbookGrid');
 const modalImage = document.getElementById('modalImage');
 const modalText = document.getElementById('modalText');
+const letterText = document.getElementById('letterText');
 const closeScrapbook = document.getElementById('closeScrapbook');
 const closeImage = document.getElementById('closeImage');
+const closeLetter = document.getElementById('closeLetter');
+const presentOverlay = document.getElementById('presentOverlay');
 
 // Event listeners are now handled in initStringLights()
 
 closeScrapbook.addEventListener('click', closeScrapbookModal);
 closeImage.addEventListener('click', closeImageModal);
+closeLetter.addEventListener('click', closeLetterModal);
+
+// Present overlay click handler
+if (presentOverlay) {
+    presentOverlay.addEventListener('click', () => {
+        playPaperSound();
+        openLetterModal();
+    });
+}
 
 // Close modals when clicking outside
 scrapbookModal.addEventListener('click', (e) => {
@@ -144,10 +383,18 @@ imageModal.addEventListener('click', (e) => {
     }
 });
 
+letterModal.addEventListener('click', (e) => {
+    if (e.target === letterModal) {
+        closeLetterModal();
+    }
+});
+
 // Close modals with Escape key
 document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
-        if (imageModal.classList.contains('active')) {
+        if (letterModal.classList.contains('active')) {
+            closeLetterModal();
+        } else if (imageModal.classList.contains('active')) {
             closeImageModal();
         } else if (scrapbookModal.classList.contains('active')) {
             closeScrapbookModal();
@@ -179,6 +426,7 @@ function openScrapbook(monthKey) {
         
         item.appendChild(img);
         item.addEventListener('click', () => {
+            playPaperSound();
             openImageModal(imageData);
         });
         
@@ -229,6 +477,25 @@ function openImageModal(imageData) {
 
 function closeImageModal() {
     imageModal.classList.remove('active');
+    document.body.style.overflow = 'auto';
+}
+
+function openLetterModal() {
+    // Reset animation by removing and re-adding the class
+    const letterContent = letterModal.querySelector('.letter-modal-content');
+    if (letterContent) {
+        letterContent.style.animation = 'none';
+        // Force reflow to reset animation
+        void letterContent.offsetWidth;
+        letterContent.style.animation = '';
+    }
+    
+    letterModal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeLetterModal() {
+    letterModal.classList.remove('active');
     document.body.style.overflow = 'auto';
 }
 
@@ -324,7 +591,8 @@ function onPlayerReady(event) {
             try {
                 event.target.playVideo();
             } catch (error) {
-                console.log('Autoplay blocked. User interaction required.');
+                // Autoplay may be blocked by browser policy - user interaction required
+                console.log('Autoplay blocked. User interaction required.', error);
             }
         }, 100);
     } catch (error) {
@@ -445,18 +713,18 @@ function initStringLights() {
     // treeWidthStart: width at the top of this month's section (in percentage)
     // treeWidthEnd: width at the bottom of this month's section (in percentage)
     const monthPositions = [
-        { top: 2, left: 50, sectionHeight: 2.4, treeWidthStart: 8, treeWidthEnd: 12 },     // January
-        { top: 4.4, left: 50, sectionHeight: 2.4, treeWidthStart: 20, treeWidthEnd: 25 },   // February
-        { top: 6.8, left: 50, sectionHeight: 2.4, treeWidthStart: 25, treeWidthEnd: 30 },   // March
-        { top: 9.2, left: 50, sectionHeight: 2.4, treeWidthStart: 38, treeWidthEnd: 42 },   // April
-        { top: 11.6, left: 50, sectionHeight: 2.4, treeWidthStart: 48, treeWidthEnd: 52 },  // May
-        { top: 14, left: 50, sectionHeight: 2.4, treeWidthStart: 60, treeWidthEnd: 58 },    // June
-        { top: 16.4, left: 50, sectionHeight: 2.4, treeWidthStart: 62, treeWidthEnd: 60 },  // July
-        { top: 18.8, left: 50, sectionHeight: 2.4, treeWidthStart: 62, treeWidthEnd: 65 },  // August
-        { top: 21.2, left: 50, sectionHeight: 2.4, treeWidthStart: 68, treeWidthEnd: 68 },  // September
-        { top: 23.6, left: 50, sectionHeight: 2.4, treeWidthStart: 78, treeWidthEnd: 80 },  // October
-        { top: 26, left: 50, sectionHeight: 2.4, treeWidthStart: 80, treeWidthEnd: 82 },    // November
-        { top: 28.4, left: 50, sectionHeight: 4, treeWidthStart: 88, treeWidthEnd: 88 }     // December
+        { top: 2, left: 50, sectionHeight: 2.4, treeWidthStart: 8, treeWidthEnd: 12 },     // January - center
+        { top: 4.4, left: 45, sectionHeight: 2.4, treeWidthStart: 20, treeWidthEnd: 25 },   // February - left
+        { top: 6.8, left: 55, sectionHeight: 2.4, treeWidthStart: 25, treeWidthEnd: 30 },   // March - right
+        { top: 9.2, left: 40, sectionHeight: 2.4, treeWidthStart: 38, treeWidthEnd: 42 },   // April - left
+        { top: 11.6, left: 60, sectionHeight: 2.4, treeWidthStart: 48, treeWidthEnd: 52 },  // May - right
+        { top: 14, left: 30, sectionHeight: 2.4, treeWidthStart: 60, treeWidthEnd: 58 },    // June - left
+        { top: 16.4, left: 65, sectionHeight: 2.4, treeWidthStart: 62, treeWidthEnd: 60 },  // July - right
+        { top: 18.8, left: 30, sectionHeight: 2.4, treeWidthStart: 62, treeWidthEnd: 65 },  // August - left
+        { top: 21.2, left: 70, sectionHeight: 2.4, treeWidthStart: 68, treeWidthEnd: 68 },  // September - right
+        { top: 23.6, left: 24, sectionHeight: 2.4, treeWidthStart: 78, treeWidthEnd: 80 },  // October - left
+        { top: 26, left: 80, sectionHeight: 2.4, treeWidthStart: 80, treeWidthEnd: 82 },    // November - right
+        { top: 28.4, left: 20, sectionHeight: 4, treeWidthStart: 88, treeWidthEnd: 88 }     // December - left
     ];
     
     // Function to check if a point is within tree bounds (green area)
@@ -489,6 +757,7 @@ function initStringLights() {
         monthBadge.className = 'month-badge';
         monthBadge.textContent = month.name.substring(0, 3); // Jan, Feb, etc.
         monthBadge.addEventListener('click', () => {
+            playPaperSound();
             openScrapbook(monthKey);
         });
         
@@ -601,6 +870,7 @@ function initStringLights() {
                     ornament.setAttribute('data-month-key', monthKey);
                     
                     ornament.addEventListener('click', () => {
+                        playRandomGlassSound();
                         openImageModal(imageData);
                     });
                     
@@ -709,6 +979,7 @@ function initStringLights() {
                 
                 // Make clickable to show image detail
                 ornament.addEventListener('click', () => {
+                    playRandomGlassSound();
                     openImageModal(imageData);
                 });
                 
